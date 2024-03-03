@@ -14,7 +14,7 @@ int main(void)
 		prompt_display();
 		user_input(str, sizeof(str));
 		token_string(str);
-		execute_prompt(str);
+		execute_prompt("ls -l");
 		handle_path(str);
 
 	}
