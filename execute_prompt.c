@@ -19,6 +19,7 @@ void execute_prompt(const char *prompt)
 		char *token;
 		char **args;
 		int count = 0;
+		int a = 0;
 		char *prompt_copy = strdup(prompt);
 
 		if (prompt_copy == NULL)
@@ -38,11 +39,11 @@ void execute_prompt(const char *prompt)
 			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
-		token = strtok((char *)prompt, " ");
+		token = strtok(strdup(prompt), " ");
 		count = 0;
 		while (token != NULL)
 		{
-			args[count++] = token;
+			args[count++] =strdup(token);
 			token = strtok(NULL, " ");
 		}
 		args[count] = NULL;
@@ -51,6 +52,10 @@ void execute_prompt(const char *prompt)
 		{
 			perror("execvp");
 			exit(EXIT_FAILURE);
+		}
+		for (a = 0; a < count; a++)
+		{
+			free(args[a]);
 		}
 
 		free(prompt_copy);
